@@ -4,6 +4,11 @@ import spinal.core._
 
 import scala.language.postfixOps
 
+/*
+  The DSP48E2 blackbox wrapper for SpinalHDL is inspired by the Chainsaw implementation:
+  https://github.com/Chainsaw-Team/Chainsaw/tree/master/src/main/scala/Chainsaw/device
+ */
+
 class DSP48E2(attrs: DSP48E2Attributes) extends BlackBox {
   addGenerics(attrs.generics: _*)
   val CLK = in Bool()
