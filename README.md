@@ -3,11 +3,11 @@ SpinalDLA is an RTL design library for deep learning accelerators based on Spina
 
 SpinalDLA integrates the following features:
 
-- flexible and versatile DSP-based arithmetic units on Xilinx FPGAs
-- very useful memory controller for deep learning applications
-- versatile systolic array instantiation
-- agile simulation for deep neural networks
-- several deep learning accelerator design examples
+- flexible and versatile DSP-based arithmetic units on Xilinx FPGAs ```(coming soon)```
+- very useful memory controller for deep learning applications ```(coming soon)```
+- versatile systolic array instantiation templates ```(coming soon)```
+- agile simulation for deep neural networks ```(coming soon)```
+- several deep learning accelerator design examples ```(coming soon)```
 - and more...
 
 # How to Use it
