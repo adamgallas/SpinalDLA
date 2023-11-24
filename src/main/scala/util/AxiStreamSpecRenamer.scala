@@ -3,6 +3,10 @@ package util
 import spinal.core._
 import spinal.lib._
 
+/*
+  This method renames the SpinalHDL Stream Bus to the correct naming of the AXI4-Stream Bus that can be recognized by Xilinx Vivado.
+ */
+
 object AxiStreamSpecRenamer {
   def apply[T <: Bundle](that: T, widthT: Boolean = true): T = {
     def doIt() = {
