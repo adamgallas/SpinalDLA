@@ -16,7 +16,7 @@ case class DSP48E2AttrBuild() {
     }
   }
 
-  def setMultiplier(mode: String = "M=AxB") = {
+  def setAsMultiplier(mode: String = "M=AxB") = {
     attrs.MREG = 1
     mode match {
       case "M=AxB" | "-" =>
@@ -35,6 +35,9 @@ case class DSP48E2AttrBuild() {
   }
 
   def setStaticINMODE(pipe: (Int, Int, Int, Int, Int), mode: String = "PA=D+A") = {
+
+    attrs.INMODEREG = 0
+
     val (aPipe, bPipe, cPipe, dPipe, adPipe) = pipe
     val INMODE = Array(0, 0, 0, 0, 0)
     require(aPipe <= 2)
@@ -87,6 +90,9 @@ case class DSP48E2AttrBuild() {
   }
 
   def setStaticOPMODE(mode: String = "P=M") = {
+
+    attrs.OPMODEREG = 0
+
     val OPMODE = Array(0, 0, 0, 0)
     val bitWidth = Array(2, 2, 3, 2)
     mode match {
@@ -118,5 +124,19 @@ case class DSP48E2AttrBuild() {
         OPMODE(0) = 3; OPMODE(1) = 0; OPMODE(2) = 1; OPMODE(3) = 3
     }
     Vec((OPMODE, bitWidth).zipped.map((s, w) => U(s, w bits))).asBits
+  }
+
+  def setStaticALUMODE()={
+    attrs.ALUMODEREG = 0
+    B"0000"
+  }
+
+  def setDynamicOPMODEforALU(enable: (Bool, Bool, Bool, Bool)) = {
+    val (selOfC, selOfP, selOfPCIN, selOfAB) = enable
+    val w = Vec(selOfP, False)
+    val x = Vec(selOfAB, selOfAB)
+    val y = Vec(selOfC, selOfC)
+    val z = Vec(selOfPCIN, False, False)
+    w ## z ## y ## x
   }
 }
