@@ -1,7 +1,6 @@
-package xilinx.DSP48E2IntArith
+package xilinx.DSP48E2IntArith.standalone
 
 import spinal.core._
-import spinal.lib._
 import xilinx.DSP48E2._
 
 import scala.language.postfixOps

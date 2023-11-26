@@ -1,4 +1,4 @@
-package xilinx.DSP48E2IntArith
+package xilinx.DSP48E2IntArith.singleCascade
 
 import spinal.core._
 import spinal.lib._

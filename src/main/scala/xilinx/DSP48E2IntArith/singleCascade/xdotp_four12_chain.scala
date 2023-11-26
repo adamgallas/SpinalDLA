@@ -1,14 +1,13 @@
-package xilinx.DSP48E2IntArith
+package xilinx.DSP48E2IntArith.singleCascade
 
 import spinal.core._
-import spinal.lib._
 import xilinx.DSP48E2._
 
 import scala.language.postfixOps
 
 /**
  * This component implement a chain of DSP48E2 for multiplex-add dot product of four 12-bit vectors.
- * For 8-bit inputs, the maximum length of the chain should not be larger than 16 to avoid overflow.
+ * For 8-bit inputs, the maximum length of the chain should not be larger than 8 to avoid overflow.
  * The last DSP48E2 in the chain can be configured as an accumulator, however, the accumulator does not support overflow protection.
  * Since A, B and C ports are all occupied, splitting the chain is not supported.
  *

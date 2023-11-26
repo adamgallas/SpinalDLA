@@ -3,7 +3,7 @@ import spinal.core.sim._
 import spinal.lib._
 import spinal.lib.eda.bench.Rtl
 import xilinx.DSP48E2._
-import xilinx.DSP48E2IntArith.dotp_int8_chain
+import xilinx.DSP48E2IntArith.singleCascade.dotp_int8_chain
 
 import scala.language.postfixOps
 import scala.util.Random
