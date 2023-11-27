@@ -1,19 +1,18 @@
 package xilinx.DSP48E2IntArith.dualCascade
 
+
 import spinal.core._
 import spinal.lib._
 import xilinx.DSP48E2._
 
 import scala.language.postfixOps
 
-class int8_ws_prefetch(length: Int) extends Component {
+class int16_ws_prefetch(length: Int) extends Component {
 
   val io = new Bundle {
-    val a = in Bits (8 bits)
-    val b = in Vec(Bits(8 bits), length)
-    val c = in Vec(Bits(8 bits), length)
-    val ab = out Bits (18 bits)
-    val ac = out Bits (18 bits)
+    val a = in Bits (16 bits)
+    val b = in Vec(Bits(16 bits), length)
+    val ab = out Bits (48 bits)
 
     val CE1 = in Bool()
     val CE2 = in Bool()
@@ -28,16 +27,16 @@ class int8_ws_prefetch(length: Int) extends Component {
   val opModes = Vec(Bits(9 bits), length)
 
   val comDSPBuild = DSP48E2AttrBuild()
-  comDSPBuild.setAsMultiplier("M=PAxB")
+  comDSPBuild.setAsMultiplier("M=AxB")
   comDSPBuild.setStaticALUMODE()
   comDSPBuild.attrs.B_INPUT = "CASCADE"
-  val comInMode = comDSPBuild.setStaticINMODE((1, 2, 0, 1, 1), "PA=D+A")
+  val comInMode = comDSPBuild.setStaticINMODE((2, 2, 0, 0, 0), "PA=A")
   val comOpMode = comDSPBuild.setStaticOPMODE("P=M+PCIN")
 
   val firstDSPBuild = DSP48E2AttrBuild()
-  firstDSPBuild.setAsMultiplier("M=PAxB")
+  firstDSPBuild.setAsMultiplier("M=AxB")
   firstDSPBuild.setStaticALUMODE()
-  val firstInMode = firstDSPBuild.setStaticINMODE((1, 2, 0, 1, 1), "PA=D+A")
+  val firstInMode = firstDSPBuild.setStaticINMODE((2, 2, 0, 0, 0), "PA=A")
   val firstOpMode = firstDSPBuild.setStaticOPMODE("P=M")
 
   val dsp48e2s = for (i <- 0 until length) yield {
@@ -50,8 +49,8 @@ class int8_ws_prefetch(length: Int) extends Component {
 
   for (i <- 0 until length) {
 
-    dsp48e2s(i).DATAIN.A := Repeat(io.b(i).msb, 30 - 8) ## io.b(i)
-    dsp48e2s(i).DATAIN.D := io.c(i).msb ## io.c(i) ## B(27 - 9 bits, default -> false)
+    dsp48e2s(i).DATAIN.A := Repeat(io.b(i).msb, 30 - 16) ## io.b(i)
+    dsp48e2s(i).DATAIN.D.clearAll()
     dsp48e2s(i).DATAIN.C.clearAll()
     dsp48e2s(i).DATAIN.CARRYIN.clearAll()
 
@@ -63,8 +62,7 @@ class int8_ws_prefetch(length: Int) extends Component {
     dsp48e2s(i).INST.CARRYINSEL.clearAll()
 
     dsp48e2s(i).CEs.A1.set()
-    dsp48e2s(i).CEs.D.set()
-    dsp48e2s(i).CEs.AD.set()
+    dsp48e2s(i).CEs.A2.set()
     dsp48e2s(i).CEs.M.set()
     dsp48e2s(i).CEs.P.set()
     dsp48e2s(i).CEs.B1 := ce1Chain(i)
@@ -79,7 +77,7 @@ class int8_ws_prefetch(length: Int) extends Component {
 
     if (i == 0) {
       dsp48e2s(i).CASCDATAIN.B.clearAll()
-      dsp48e2s(i).DATAIN.B := Repeat(io.a.msb, 18 - 8) ## io.a
+      dsp48e2s(i).DATAIN.B := Repeat(io.a.msb, 18 - 16) ## io.a
       dsp48e2s(i).INST.INMODE := firstInMode
       dsp48e2s(i).INST.OPMODE := firstOpMode
       dsp48e2s(i).CASCDATAIN.P.clearAll()
@@ -103,11 +101,5 @@ class int8_ws_prefetch(length: Int) extends Component {
     }
   }
 
-  val P = dsp48e2s.last.DATAOUT.P
-  val abRes = P(17 downto 0).asBits
-  val abNeg = B"0" ## abRes.msb
-  val acRes = P(35 downto 18).asSInt + abNeg.asSInt
-
-  io.ab := abRes
-  io.ac := acRes.asBits
+  io.ab := dsp48e2s.last.DATAOUT.P
 }

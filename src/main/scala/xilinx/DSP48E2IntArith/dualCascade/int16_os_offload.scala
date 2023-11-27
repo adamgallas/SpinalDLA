@@ -1,5 +1,5 @@
 package xilinx.DSP48E2IntArith.dualCascade
 
-class int8_os_offload {
+class int16_os_offload {
 
 }
