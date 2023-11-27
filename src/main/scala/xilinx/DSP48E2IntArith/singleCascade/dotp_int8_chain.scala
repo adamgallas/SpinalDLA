@@ -71,7 +71,6 @@ class dotp_int8_chain(length: Int, splitAt: Int = -1) extends Component {
     dsp48e2s(i).INST.ALUMODE.clearAll()
     dsp48e2s(i).INST.INMODE := inModes(i)
     dsp48e2s(i).INST.OPMODE := opModes(i)
-    dsp48e2s(i).INST.CARRYINSEL.clearAll()
 
     dsp48e2s(i).CEs.A1.set()
     dsp48e2s(i).CEs.B1.set()
