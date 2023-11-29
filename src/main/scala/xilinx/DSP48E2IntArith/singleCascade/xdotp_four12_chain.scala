@@ -37,6 +37,7 @@ class xdotp_four12_chain(length: Int, acc: Boolean = false) extends Component {
 
   val inMode = Bits(5 bits)
   val opModes = Vec(Bits(9 bits), length)
+
   val dsp48e2s = for (i <- 0 until length) yield {
     val build = DSP48E2AttrBuild()
     build.setAsALU(4)

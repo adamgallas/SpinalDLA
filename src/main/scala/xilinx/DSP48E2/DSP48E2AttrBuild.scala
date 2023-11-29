@@ -140,13 +140,12 @@ case class DSP48E2AttrBuild() {
     w ## z ## y ## x
   }
 
-  def setDynamicOPMODEforMult(enable: (Bool, Bool, Bits)) = {
-    val (selOfC, selOfM, selOfZ) = enable
-    require(selOfZ.getWidth == 2)
-    val w = Vec(selOfC, selOfC)
+  def setDynamicOPModeforMultWithOutC(enable: (Bool, Bool, Bool)) = {
+    val (selOfP, selOfM, selOfPCIN) = enable
+    val w = Vec(selOfP, False)
     val x = Vec(selOfM, False)
     val y = Vec(selOfM, False)
-    val z = False ## selOfZ
+    val z = Vec(selOfPCIN, False, False)
     w ## z ## y ## x
   }
 }
