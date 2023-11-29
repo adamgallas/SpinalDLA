@@ -126,7 +126,7 @@ case class DSP48E2AttrBuild() {
     Vec((OPMODE, bitWidth).zipped.map((s, w) => U(s, w bits))).asBits
   }
 
-  def setStaticALUMODE()={
+  def setStaticALUMODE() = {
     attrs.ALUMODEREG = 0
     B"0000"
   }
@@ -137,6 +137,16 @@ case class DSP48E2AttrBuild() {
     val x = Vec(selOfAB, selOfAB)
     val y = Vec(selOfC, selOfC)
     val z = Vec(selOfPCIN, False, False)
+    w ## z ## y ## x
+  }
+
+  def setDynamicOPMODEforMult(enable: (Bool, Bool, Bits)) = {
+    val (selOfC, selOfM, selOfZ) = enable
+    require(selOfZ.getWidth == 2)
+    val w = Vec(selOfC, selOfC)
+    val x = Vec(selOfM, False)
+    val y = Vec(selOfM, False)
+    val z = False ## selOfZ
     w ## z ## y ## x
   }
 }
