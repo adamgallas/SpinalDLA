@@ -20,6 +20,8 @@ class acc_int24() extends Component {
     val last = in Bool()
   }
 
+  val latency = 2
+
   val accValid = Bool().setAsReg().init(False)
   accValid.setWhen(io.valid).clearWhen(io.last)
   val build = DSP48E2AttrBuild()
@@ -65,6 +67,6 @@ class acc_int24() extends Component {
     rst => if (!rst.hasAssignement) rst.clearAll()
   )
 
-  io.ab := dsp.DATAOUT.P.drop(48)
-  io.cd := dsp.DATAOUT.P.take(48)
+  io.ab := dsp.DATAOUT.P.drop(24)
+  io.cd := dsp.DATAOUT.P.take(24)
 }

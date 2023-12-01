@@ -42,7 +42,7 @@ object eval_mul_int16 extends App {
         }
         if (i > latency) {
           val index = i - latency - 1
-          println(ab(index) , io.ab.toBigInt.toInt)
+          assert(ab(index) == io.ab.toBigInt.toInt)
         }
         clockDomain.waitSampling(1)
       }

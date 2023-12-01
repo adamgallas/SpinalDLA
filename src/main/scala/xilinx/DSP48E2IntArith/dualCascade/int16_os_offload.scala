@@ -1,14 +1,10 @@
 package xilinx.DSP48E2IntArith.dualCascade
 
 import spinal.core._
-import spinal.core.sim._
 import spinal.lib._
-import spinal.lib.eda.bench.Rtl
 import xilinx.DSP48E2._
-import xilinx.DSP48E2IntArith.dualCascade.int16_ws_prefetch
 
 import scala.language.postfixOps
-import scala.util.Random
 
 class int16_os_offload(length: Int) extends Component {
   val io = new Bundle {
