@@ -42,7 +42,7 @@ class int16_os_offload(length: Int) extends Component {
     if (i != 0) build.attrs.B_INPUT = "CASCADE"
 
     inModes(i) := build.setStaticINMODE((2, 2, 0, 0, 0), "PA=A")
-    opModes(i) := build.setDynamicOPModeforMultWithOutC((selOfP(i), selOfM(i), selOfPCIN(i)))
+    opModes(i) := build.setDynamicOPModeforMult((selOfP(i), selOfM(i), selOfPCIN(i)))
     new DSP48E2(build.attrs)
   }
 

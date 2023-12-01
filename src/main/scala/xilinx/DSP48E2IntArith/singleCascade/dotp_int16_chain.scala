@@ -19,8 +19,8 @@ class dotp_int16_chain(length: Int, acc: Boolean = false, splitAt: Int = -1) ext
 
   val latency = length + 4 - 1
 
-  val valid = Delay(io.valid, 2, init = False)
-  val last = Delay(io.last, 2, init = False)
+  val valid = if(acc) Delay(io.valid, 2, init = False) else null
+  val last = if(acc)  Delay(io.last, 2, init = False) else null
   val lastDSPAccValid = if (acc) Bool().setAsReg().init(False) else null
   if (acc) {
     lastDSPAccValid.setWhen(valid).clearWhen(last)
@@ -43,7 +43,7 @@ class dotp_int16_chain(length: Int, acc: Boolean = false, splitAt: Int = -1) ext
       (2, 2, if (i == toIndex) 1 else 0, 0, 0), "PA=A")
 
     if (i == length - 1 && acc) {
-      opModes(i) := build.setDynamicOPModeforMultWithOutC(
+      opModes(i) := build.setDynamicOPModeforMult(
         (lastDSPAccValid, valid, valid)
       )
     }

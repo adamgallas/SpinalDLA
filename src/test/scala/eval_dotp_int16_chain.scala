@@ -12,7 +12,7 @@ object eval_dotp_int16_chain extends App {
 
   val sampleLength = 16
   val vecLength = 8
-  val acc = true
+  val acc = false
 
   val a = Array.fill(sampleLength)(Array.fill(vecLength)(Random.nextInt(256) - 128))
   val b = Array.fill(sampleLength)(Array.fill(vecLength)(Random.nextInt(256) - 128))
