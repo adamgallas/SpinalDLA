@@ -52,7 +52,7 @@ class four12_ws_prefetch(length: Int, width: Int) extends Component {
     }
 
     inModes(i) := build.setStaticINMODE((2, 2, 1, 0, 0), "-")
-    opModes(i) := build.setDynamicOPMODEforALU((
+    opModes(i) := build.setDynamicOPMode_C_P_PCIN_AB((
       io.bSel(i).msb,
       False,
       if (i == 0) False else True,

@@ -26,7 +26,7 @@ class xadd_four12() extends Component {
   build.setAsALU(4)
 
   val valOfInMode = build.setStaticINMODE((1, 1, 1, 0, 0), "-")
-  val valOfOPMode = build.setDynamicOPMODEforALU((io.bSel.msb, False, False, io.aSel.msb))
+  val valOfOPMode = build.setDynamicOPMode_C_P_PCIN_AB((io.bSel.msb, False, False, io.aSel.msb))
   val valOfALUMode = build.setStaticALUMODE()
   val attrs = build.attrs
 

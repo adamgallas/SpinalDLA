@@ -43,7 +43,7 @@ class dotp_int16_chain(length: Int, acc: Boolean = false, splitAt: Int = -1) ext
       (2, 2, if (i == toIndex) 1 else 0, 0, 0), "PA=A")
 
     if (i == length - 1 && acc) {
-      opModes(i) := build.setDynamicOPModeforMult(
+      opModes(i) := build.setDynamicOPMode_P_M_PCIN(
         (lastDSPAccValid, valid, valid)
       )
     }

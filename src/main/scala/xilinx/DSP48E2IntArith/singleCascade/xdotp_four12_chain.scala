@@ -45,7 +45,7 @@ class xdotp_four12_chain(length: Int, acc: Boolean = false) extends Component {
     if (i == 0) inMode := build.setStaticINMODE((1, 1, 1, 0, 0), "-")
     else build.setStaticINMODE((1, 1, 1, 0, 0), "-")
 
-    opModes(i) := build.setDynamicOPMODEforALU((
+    opModes(i) := build.setDynamicOPMode_C_P_PCIN_AB((
       io.bSel(i).msb,
       if (i == length - 1 && acc) lastDSPAccValid else False,
       if (i == 0) False

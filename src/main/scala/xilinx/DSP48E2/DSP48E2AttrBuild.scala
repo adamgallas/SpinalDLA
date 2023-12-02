@@ -131,7 +131,7 @@ case class DSP48E2AttrBuild() {
     B"0000"
   }
 
-  def setDynamicOPMODEforALU(enable: (Bool, Bool, Bool, Bool)) = {
+  def setDynamicOPMode_C_P_PCIN_AB(enable: (Bool, Bool, Bool, Bool)) = {
     val (selOfC, selOfP, selOfPCIN, selOfAB) = enable
     val w = Vec(selOfP, False)
     val x = Vec(selOfAB, selOfAB)
@@ -140,7 +140,25 @@ case class DSP48E2AttrBuild() {
     w ## z ## y ## x
   }
 
-  def setDynamicOPModeforMult(enable: (Bool, Bool, Bool)) = {
+  def setDynamicOPMode_C_P_RND_AB(enable: (Bool, Bool, Bool, Bool)) = {
+    val (selOfC, selOfP, selOfRND, selOfAB) = enable
+    val w = Vec(False, selOfRND)
+    val x = Vec(selOfAB, selOfAB)
+    val y = Vec(selOfC, selOfC)
+    val z = Vec(False, selOfP, False)
+    w ## z ## y ## x
+  }
+
+  def setDynamicOPMode_C_P_RND_M(enable: (Bool, Bool, Bool, Bool)) = {
+    val (selOfC, selOfP, selOfRND, selOfM) = enable
+    val w = Vec(False, selOfRND)
+    val x = Vec(selOfM, False)
+    val y = Vec(selOfC || selOfM, selOfC)
+    val z = Vec(False, selOfP, False)
+    w ## z ## y ## x
+  }
+
+  def setDynamicOPMode_P_M_PCIN(enable: (Bool, Bool, Bool)) = {
     val (selOfP, selOfM, selOfPCIN) = enable
     val w = Vec(selOfP, False)
     val x = Vec(selOfM, False)
