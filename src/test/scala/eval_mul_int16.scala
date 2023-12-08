@@ -3,16 +3,12 @@ import spinal.core.sim._
 import spinal.lib._
 import spinal.lib.eda.bench.Rtl
 import xilinx.DSP48E2._
-import xilinx.DSP48E2IntArith.standalone.mul_int16
+import xilinx.DSP48E2IntArithmetic.standalone.int16_mul
 
 import scala.language.postfixOps
 import scala.util.Random
 
 object eval_mul_int16 extends App {
-
-  SpinalVerilog(new mul_int16)
-
-  // simulate
 
   val length = 32
   val a = Array.fill(length)(Random.nextInt(256) - 128)
@@ -21,7 +17,7 @@ object eval_mul_int16 extends App {
 
   SimConfig.withFstWave
     .addRtl("data/sim/DSP48E2.v")
-    .compile(new mul_int16)
+    .compile(new int16_mul)
     .doSim { dut =>
       import dut._
 

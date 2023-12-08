@@ -3,7 +3,7 @@ import spinal.core.sim._
 import spinal.lib._
 import spinal.lib.eda.bench.Rtl
 import xilinx.DSP48E2._
-import xilinx.DSP48E2IntArith.standalone.mul_int8
+import xilinx.DSP48E2IntArithmetic.standalone.pack_int8_mul
 
 import scala.language.postfixOps
 import scala.util.Random
@@ -21,7 +21,7 @@ object eval_mul_int8 extends App {
 
   SimConfig.withFstWave
     .addRtl("data/sim/DSP48E2.v")
-    .compile(new mul_int8)
+    .compile(new pack_int8_mul)
     .doSim { dut =>
       import dut._
 

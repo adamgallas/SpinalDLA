@@ -3,7 +3,7 @@ import spinal.core.sim._
 import spinal.lib._
 import spinal.lib.eda.bench.Rtl
 import xilinx.DSP48E2._
-import xilinx.DSP48E2IntArith.singleCascade.xdotp_four12_chain
+import xilinx.DSP48E2IntArithmetic.cascade.int12_xdotp
 
 import scala.language.postfixOps
 import scala.util.Random
@@ -30,7 +30,7 @@ object eval_xdotp_four12_chain extends App {
 
   SimConfig.withFstWave
     .addRtl("data/sim/DSP48E2.v")
-    .compile(new xdotp_four12_chain(vecLength, acc))
+    .compile(new int12_xdotp(vecLength, acc))
     .doSim { dut =>
       import dut._
 

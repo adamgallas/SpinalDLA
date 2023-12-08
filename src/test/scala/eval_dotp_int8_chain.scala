@@ -3,7 +3,7 @@ import spinal.core.sim._
 import spinal.lib._
 import spinal.lib.eda.bench.Rtl
 import xilinx.DSP48E2._
-import xilinx.DSP48E2IntArith.singleCascade.dotp_int8_chain
+import xilinx.DSP48E2IntArithmetic.cascade.int8_dotp
 
 import scala.language.postfixOps
 import scala.util.Random
@@ -12,7 +12,7 @@ object eval_dotp_int8_chain extends App {
 
   val sampleLength = 1024
   val vecLength = 8
-  val splitAt = -1
+
   val a = Array.fill(sampleLength)(Array.fill(vecLength)(Random.nextInt(128)))
   val b = Array.fill(sampleLength)(Array.fill(vecLength)(Random.nextInt(128)))
   val c = Array.fill(sampleLength)(Array.fill(vecLength)(Random.nextInt(128)))
@@ -21,7 +21,7 @@ object eval_dotp_int8_chain extends App {
 
   SimConfig.withFstWave
     .addRtl("data/sim/DSP48E2.v")
-    .compile(new dotp_int8_chain(vecLength, splitAt))
+    .compile(new int8_dotp(vecLength))
     .doSim { dut =>
       import dut._
 
