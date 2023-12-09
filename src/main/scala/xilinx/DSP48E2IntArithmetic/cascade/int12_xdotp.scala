@@ -65,15 +65,9 @@ class int12_xdotp(length: Int, acc: Boolean = false) extends Component {
     if (i != 0) dsp48e2s(i).CASCDATAIN.P := dsp48e2s(i - 1).CASCDATAOUT.P
 
     if(accCond){
-      dsp48e2s(i).addGeneric("IS_RSTA_INVERTED", "1'b1")
-      dsp48e2s(i).addGeneric("IS_RSTB_INVERTED", "1'b1")
-      dsp48e2s(i).addGeneric("IS_RSTC_INVERTED", "1'b1")
-      dsp48e2s(i).RSTs.A.removeAssignments()
-      dsp48e2s(i).RSTs.B.removeAssignments()
-      dsp48e2s(i).RSTs.C.removeAssignments()
-      dsp48e2s(i).RSTs.A := io.valid
-      dsp48e2s(i).RSTs.B := io.valid
-      dsp48e2s(i).RSTs.C := io.valid
+      a.add_optional_valid_rst(dsp48e2s(i), io.valid)
+      b.add_optional_valid_rst(dsp48e2s(i), io.valid)
+      c.add_optional_valid_rst(dsp48e2s(i), io.valid)
     }
   }
 

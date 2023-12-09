@@ -3,7 +3,7 @@ import spinal.core.sim._
 import spinal.lib._
 import spinal.lib.eda.bench.Rtl
 import xilinx.DSP48E2._
-import xilinx.DSP48E2IntArith.dualCascade.int8_ws_prefetch
+import xilinx.DSP48E2IntArithmetic.dualCascade.int8_ws_B_P
 
 import scala.language.postfixOps
 import scala.util.Random
@@ -34,37 +34,37 @@ object eval_int8_ws_prefetch extends App {
 
   SimConfig.withFstWave
     .addRtl("data/sim/DSP48E2.v")
-    .compile(new int8_ws_prefetch(vecLength))
+    .compile(new int8_ws_B_P(vecLength))
     .doSimUntilVoid { dut =>
       import dut._
 
       io.a #= 0
       io.b.foreach(_ #= 0)
       io.c.foreach(_ #= 0)
-      io.CE1 #= false
-      io.CE2 #= false
-      io.rstCE1.foreach(_ #= true)
+      io.enPrefetch #= false
+      io.enFetch #= false
+      io.clrPrefetch.foreach(_ #= true)
 
       clockDomain.forkStimulus(10)
       clockDomain.waitSampling(32)
 
       def preLoad(p: Int) = {
-        io.CE1 #= false
+        io.enPrefetch #= false
         for (v <- 0 until vecLength) {
           io.a #= a(p)(vecLength - v - 1) & 0xff
-          io.CE1 #= true
-          if (v == vecLength - 1) io.rstCE1.foreach(_ #= true)
-          else io.rstCE1.foreach(_ #= false)
+          io.enPrefetch #= true
+          if (v == vecLength - 1) io.clrPrefetch.foreach(_ #= true)
+          else io.clrPrefetch.foreach(_ #= false)
           clockDomain.waitSampling()
         }
-        io.CE1 #= false
-        io.rstCE1.foreach(_ #= false)
+        io.enPrefetch #= false
+        io.clrPrefetch.foreach(_ #= false)
       }
 
       def load() = {
-        io.CE2 #= true
+        io.enFetch #= true
         clockDomain.waitSampling()
-        io.CE2 #= false
+        io.enFetch #= false
       }
 
       def procedure(p: Int) = {

@@ -46,6 +46,12 @@ object DSP48E2ConfigABCD {
       dsp.RSTs.A.clearAll()
     }
 
+    def add_optional_valid_rst(dsp: DSP48E2, valid: Bool) = {
+      dsp.addGeneric("IS_RSTA_INVERTED", "1'b1")
+      if (dsp.RSTs.A.hasAssignement) dsp.RSTs.A.removeAssignments()
+      dsp.RSTs.A := valid
+    }
+
     def set_a_cascade(attr: DSP48E2Attributes) = attr.A_INPUT = "CASCADE"
 
     def set_a_pingpong(attr: DSP48E2Attributes) = attr.AREG = 2
@@ -80,6 +86,12 @@ object DSP48E2ConfigABCD {
       dsp.CEs.B1.clearAll()
       dsp.CEs.B2.clearAll()
       dsp.RSTs.B.clearAll()
+    }
+
+    def add_optional_valid_rst(dsp: DSP48E2, valid: Bool) = {
+      dsp.addGeneric("IS_RSTB_INVERTED", "1'b1")
+      if (dsp.RSTs.B.hasAssignement) dsp.RSTs.B.removeAssignments()
+      dsp.RSTs.B := valid
     }
 
     def set_b_cascade(attr: DSP48E2Attributes) = attr.B_INPUT = "CASCADE"
@@ -117,6 +129,12 @@ object DSP48E2ConfigABCD {
       dsp.RSTs.C.clearAll()
     }
 
+    def add_optional_valid_rst(dsp: DSP48E2, valid: Bool) = {
+      dsp.addGeneric("IS_RSTC_INVERTED", "1'b1")
+      if (dsp.RSTs.C.hasAssignement) dsp.RSTs.C.removeAssignments()
+      dsp.RSTs.C := valid
+    }
+
     def set_c_input_attr(attr: DSP48E2Attributes) = attr.CREG = 1
 
     def assign_c_input_ctrl(dsp: DSP48E2, ce: Bool = True): Unit = {
@@ -135,6 +153,12 @@ object DSP48E2ConfigABCD {
       dsp.CEs.D.clearAll()
       dsp.CEs.AD.clear()
       dsp.RSTs.D.clearAll()
+    }
+
+    def add_optional_valid_rst(dsp: DSP48E2, valid: Bool) = {
+      dsp.addGeneric("IS_RSTD_INVERTED", "1'b1")
+      if (dsp.RSTs.D.hasAssignement) dsp.RSTs.D.removeAssignments()
+      dsp.RSTs.D := valid
     }
   }
 
@@ -167,33 +191,33 @@ object DSP48E2ConfigABCD {
   }
 
   object ad_pack {
-    def set_static_ad_pack_attr(attr: DSP48E2Attributes) = {
+    def set_static_ad_pack_attr(attr: DSP48E2Attributes, use_ad: Boolean = true) = {
       attr.AREG = 1
-      attr.DREG = 1
+      attr.DREG = if (use_ad) 1 else 0
       attr.ADREG = 1
       attr.AMULTSEL = "AD"
       attr.PREADDINSEL = "A"
     }
 
-    def set_static_b_attr(attr: DSP48E2Attributes) = {
-      b.set_static_b_input_attr(attr, 2)
+    def set_static_b_attr(attr: DSP48E2Attributes, use_ad: Boolean = true) = {
+      b.set_static_b_input_attr(attr, if (use_ad) 2 else 1)
     }
 
     def set_pingpong_b_attr(attr: DSP48E2Attributes) = {
       b.set_b_pingpong(attr)
     }
 
-    def assign_static_ad_pack_ctrl(dsp: DSP48E2): Unit = {
+    def assign_static_ad_pack_ctrl(dsp: DSP48E2, use_ad: Boolean = true): Unit = {
       inmode.assign_inmode_a(dsp, high4a1 = True)
       dsp.CEs.A1.set()
       dsp.CEs.D.set()
-      dsp.CEs.AD.set()
+      if (use_ad) dsp.CEs.AD.set()
       dsp.RSTs.A.clear()
       dsp.RSTs.D.clear()
     }
 
-    def assign_static_b_ctrl(dsp: DSP48E2): Unit = {
-      b.assign_static_b_input_ctrl(dsp, 2)
+    def assign_static_b_ctrl(dsp: DSP48E2, use_ad: Boolean = true): Unit = {
+      b.assign_static_b_input_ctrl(dsp, if (use_ad) 2 else 1)
     }
 
     def assign_pingpong_b_ctrl(dsp: DSP48E2, ce1: Bool, ce2: Bool): Unit = {
