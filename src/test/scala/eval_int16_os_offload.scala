@@ -3,14 +3,14 @@ import spinal.core.sim._
 import spinal.lib._
 import spinal.lib.eda.bench.Rtl
 import xilinx.DSP48E2._
-import xilinx.DSP48E2IntArith.dualCascade.int16_os_offload
+import xilinx.DSP48E2IntArithmetic.dualCascade.int16_os_B_P
 
 import scala.language.postfixOps
 import scala.util.Random
 
 object eval_int16_os_offload extends App {
 
-  SpinalVerilog(new int16_os_offload(4))
+  SpinalVerilog(new int16_os_B_P(4))
 
   val accLength = 16
   val vecLength = 4
@@ -25,7 +25,7 @@ object eval_int16_os_offload extends App {
 
   SimConfig.withFstWave
     .addRtl("data/sim/DSP48E2.v")
-    .compile(new int16_os_offload(vecLength))
+    .compile(new int16_os_B_P(vecLength))
     .doSimUntilVoid { dut =>
       import dut._
 

@@ -66,6 +66,8 @@ class int8_ws_AD_B(length: Int) extends Component {
     io.abOut(i) := dsp48e2s(i).DATAOUT.P(17 downto 0)
     io.acOut(i) := dsp48e2s(i).DATAOUT.P(35 downto 18)
 
+    a.assign_a_cascade(dsp48e2s(i))
+
     if (i == 0) {
       dPortDataChain(i) := io.c
       dsp48e2s(i).DATAIN.A := io.b.asSInt.resize(30).asBits

@@ -6,7 +6,7 @@ import xilinx.DSP48E2._
 
 import scala.language.postfixOps
 
-class acc_int24() extends Component {
+class int24_acc() extends Component {
   val io = new Bundle {
     val a = in Bits (24 bits)
     val b = in Bits (24 bits)

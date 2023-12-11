@@ -17,7 +17,6 @@ object DSP48E2ConfigABCD {
 
     def assign_dynamic_inmode_ctrl(dsp: DSP48E2): Unit = {
       dsp.CEs.INMODE.set()
-      dsp.RSTs.INMODE.clear()
     }
 
     def assign_inmode_a(dsp: DSP48E2, high4a1: Bool) = dsp.INST.INMODE(0) := high4a1
@@ -42,9 +41,6 @@ object DSP48E2ConfigABCD {
 
     def assign_mute_a_ctrl(dsp: DSP48E2): Unit = {
       dsp.DATAIN.A.setAll()
-      dsp.CEs.A1.clearAll()
-      dsp.CEs.A2.clearAll()
-      dsp.RSTs.A.clearAll()
     }
 
     def add_optional_valid_rst(dsp: DSP48E2, valid: Bool) = {
@@ -55,27 +51,35 @@ object DSP48E2ConfigABCD {
 
     def set_a_cascade(attr: DSP48E2Attributes) = attr.A_INPUT = "CASCADE"
 
+    def assign_a_cascade(dsp: DSP48E2) = {
+      dsp.CEs.A2.set()
+    }
+
     def set_a_pingpong(attr: DSP48E2Attributes) = attr.AREG = 2
 
     def assign_a_pingpong_ctrl(dsp: DSP48E2, ce1: Bool, ce2: Bool): Unit = {
       inmode.assign_inmode_a(dsp, high4a1 = False)
       dsp.CEs.A1 := ce1
       dsp.CEs.A2 := ce2
-      dsp.RSTs.A.clearAll()
     }
 
     def set_static_a_input_attr(attr: DSP48E2Attributes, pipe: Int) = attr.AREG = pipe
 
-    def assign_static_a_input_ctrl(dsp: DSP48E2, pipe: Int) = {
-      dsp.RSTs.A.clear()
+    def assign_static_a_input_ctrl(dsp: DSP48E2, pipe: Int, isALU: Boolean = false) = {
       if (pipe == 2) {
         dsp.CEs.A1.set()
         dsp.CEs.A2.set()
         inmode.assign_inmode_a(dsp, high4a1 = False)
       }
       else {
-        dsp.CEs.A1.set()
-        inmode.assign_inmode_a(dsp, high4a1 = True)
+        if (isALU) {
+          dsp.CEs.A2.set()
+          inmode.assign_inmode_a(dsp, high4a1 = False)
+        }
+        else {
+          dsp.CEs.A1.set()
+          inmode.assign_inmode_a(dsp, high4a1 = True)
+        }
       }
     }
   }
@@ -85,9 +89,6 @@ object DSP48E2ConfigABCD {
 
     def assign_mute_b_ctrl(dsp: DSP48E2): Unit = {
       dsp.DATAIN.B.setAll()
-      dsp.CEs.B1.clearAll()
-      dsp.CEs.B2.clearAll()
-      dsp.RSTs.B.clearAll()
     }
 
     def add_optional_valid_rst(dsp: DSP48E2, valid: Bool) = {
@@ -98,27 +99,35 @@ object DSP48E2ConfigABCD {
 
     def set_b_cascade(attr: DSP48E2Attributes) = attr.B_INPUT = "CASCADE"
 
+    def assign_b_cascade(dsp:DSP48E2)={
+      dsp.CEs.B2.set()
+    }
+
     def set_b_pingpong(attr: DSP48E2Attributes) = attr.BREG = 2
 
     def assign_b_pingpong_ctrl(dsp: DSP48E2, ce1: Bool, ce2: Bool): Unit = {
       inmode.assign_inmode_b(dsp, high4b1 = False)
       dsp.CEs.B1 := ce1
       dsp.CEs.B2 := ce2
-      dsp.RSTs.B.clearAll()
     }
 
     def set_static_b_input_attr(attr: DSP48E2Attributes, pipe: Int) = attr.BREG = pipe
 
-    def assign_static_b_input_ctrl(dsp: DSP48E2, pipe: Int) = {
-      dsp.RSTs.B.clear()
+    def assign_static_b_input_ctrl(dsp: DSP48E2, pipe: Int, isALU: Boolean = false) = {
       if (pipe == 2) {
         dsp.CEs.B1.set()
         dsp.CEs.B2.set()
         inmode.assign_inmode_b(dsp, high4b1 = False)
       }
       else {
-        dsp.CEs.B1.set()
-        inmode.assign_inmode_b(dsp, high4b1 = True)
+        if (isALU) {
+          dsp.CEs.B2.set()
+          inmode.assign_inmode_b(dsp, high4b1 = False)
+        }
+        else {
+          dsp.CEs.B1.set()
+          inmode.assign_inmode_b(dsp, high4b1 = True)
+        }
       }
     }
   }
@@ -128,8 +137,6 @@ object DSP48E2ConfigABCD {
 
     def assign_mute_c_ctrl(dsp: DSP48E2): Unit = {
       dsp.DATAIN.C.setAll()
-      dsp.CEs.C.clearAll()
-      dsp.RSTs.C.clearAll()
     }
 
     def add_optional_valid_rst(dsp: DSP48E2, valid: Bool) = {
@@ -142,7 +149,6 @@ object DSP48E2ConfigABCD {
 
     def assign_c_input_ctrl(dsp: DSP48E2, ce: Bool = True): Unit = {
       dsp.CEs.C := ce
-      dsp.RSTs.C.clear()
     }
   }
 
@@ -154,9 +160,6 @@ object DSP48E2ConfigABCD {
 
     def assign_mute_d_ctrl(dsp: DSP48E2): Unit = {
       dsp.DATAIN.D.setAll()
-      dsp.CEs.D.clearAll()
-      dsp.CEs.AD.clear()
-      dsp.RSTs.D.clearAll()
     }
 
     def add_optional_valid_rst(dsp: DSP48E2, valid: Bool) = {
@@ -177,10 +180,6 @@ object DSP48E2ConfigABCD {
       inmode.assign_inmode_b(dsp, high4b1 = False)
       dsp.CEs.A2.set()
       dsp.CEs.B2.set()
-      dsp.CEs.A1.clear()
-      dsp.CEs.B1.clear()
-      dsp.RSTs.A.clear()
-      dsp.RSTs.B.clear()
     }
 
     def set_pingpong_ab_concat_attr(attr: DSP48E2Attributes) = {
@@ -216,8 +215,6 @@ object DSP48E2ConfigABCD {
       dsp.CEs.A1.set()
       dsp.CEs.D.set()
       if (use_ad) dsp.CEs.AD.set()
-      dsp.RSTs.A.clear()
-      dsp.RSTs.D.clear()
     }
 
     def assign_static_b_ctrl(dsp: DSP48E2, use_ad: Boolean = true): Unit = {
