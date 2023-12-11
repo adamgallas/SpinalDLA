@@ -3,12 +3,12 @@ import spinal.core.sim._
 import spinal.lib._
 import spinal.lib.eda.bench.Rtl
 import xilinx.DSP48E2._
-import xilinx.DSP48E2IntArithmetic.standalone.pack_uint4_mul
+import xilinx.DSP48E2IntArithmetic.standalone.uint4_mul
 
 import scala.language.postfixOps
 import scala.util.Random
 
-object eval_mul_uint4 extends App {
+object eval_uint4_mul extends App {
 
   val sampleLength = 1024
   val a1 = Array.fill(sampleLength)(Random.nextInt(16))
@@ -27,7 +27,7 @@ object eval_mul_uint4 extends App {
 
   SimConfig.withFstWave
     .addRtl("data/sim/DSP48E2.v")
-    .compile(new pack_uint4_mul)
+    .compile(new uint4_mul)
     .doSim { dut =>
       import dut._
 

@@ -8,7 +8,7 @@ import xilinx.DSP48E2IntArithmetic.cascade.int8_dotp
 import scala.language.postfixOps
 import scala.util.Random
 
-object eval_dotp_int8_chain extends App {
+object eval_int8_dotp extends App {
 
   val sampleLength = 1024
   val vecLength = 8

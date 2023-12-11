@@ -8,7 +8,7 @@ import xilinx.DSP48E2IntArithmetic.standalone.int12_xadd
 import scala.language.postfixOps
 import scala.util.Random
 
-object eval_xadd_four12 extends App {
+object eval_int12_xadd extends App {
 
   // simulate
 

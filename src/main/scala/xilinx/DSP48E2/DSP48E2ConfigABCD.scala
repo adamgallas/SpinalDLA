@@ -41,6 +41,7 @@ object DSP48E2ConfigABCD {
     def set_mute_a_attr(attr: DSP48E2Attributes) = attr.AREG = 2
 
     def assign_mute_a_ctrl(dsp: DSP48E2): Unit = {
+      dsp.DATAIN.A.setAll()
       dsp.CEs.A1.clearAll()
       dsp.CEs.A2.clearAll()
       dsp.RSTs.A.clearAll()
@@ -83,6 +84,7 @@ object DSP48E2ConfigABCD {
     def set_mute_b_attr(attr: DSP48E2Attributes) = attr.BREG = 2
 
     def assign_mute_b_ctrl(dsp: DSP48E2): Unit = {
+      dsp.DATAIN.B.setAll()
       dsp.CEs.B1.clearAll()
       dsp.CEs.B2.clearAll()
       dsp.RSTs.B.clearAll()
@@ -125,6 +127,7 @@ object DSP48E2ConfigABCD {
     def set_mute_c_attr(attr: DSP48E2Attributes) = attr.CREG = 1
 
     def assign_mute_c_ctrl(dsp: DSP48E2): Unit = {
+      dsp.DATAIN.C.setAll()
       dsp.CEs.C.clearAll()
       dsp.RSTs.C.clearAll()
     }
@@ -150,6 +153,7 @@ object DSP48E2ConfigABCD {
     }
 
     def assign_mute_d_ctrl(dsp: DSP48E2): Unit = {
+      dsp.DATAIN.D.setAll()
       dsp.CEs.D.clearAll()
       dsp.CEs.AD.clear()
       dsp.RSTs.D.clearAll()

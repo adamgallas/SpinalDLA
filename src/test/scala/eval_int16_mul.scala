@@ -8,7 +8,7 @@ import xilinx.DSP48E2IntArithmetic.standalone.int16_mul
 import scala.language.postfixOps
 import scala.util.Random
 
-object eval_mul_int16 extends App {
+object eval_int16_mul extends App {
 
   val length = 32
   val a = Array.fill(length)(Random.nextInt(256) - 128)
