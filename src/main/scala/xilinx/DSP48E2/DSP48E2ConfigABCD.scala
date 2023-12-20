@@ -82,6 +82,14 @@ object DSP48E2ConfigABCD {
         }
       }
     }
+
+    def set_time_multiplex_a_input_attr(attr: DSP48E2Attributes) = attr.AREG = 1
+
+    def assign_time_multiplex_a_input_ctrl(dsp: DSP48E2, ce1: Bool = True, ce2: Bool = True, selA1: Bool = True): Unit = {
+      dsp.CEs.A1 := ce1
+      dsp.CEs.A2 := ce2
+      inmode.assign_inmode_a(dsp, high4a1 = selA1)
+    }
   }
 
   object b {
@@ -99,7 +107,7 @@ object DSP48E2ConfigABCD {
 
     def set_b_cascade(attr: DSP48E2Attributes) = attr.B_INPUT = "CASCADE"
 
-    def assign_b_cascade(dsp:DSP48E2)={
+    def assign_b_cascade(dsp: DSP48E2) = {
       dsp.CEs.B2.set()
     }
 
@@ -130,6 +138,15 @@ object DSP48E2ConfigABCD {
         }
       }
     }
+
+    def set_time_multiplex_b_input_attr(attr: DSP48E2Attributes) = attr.BREG = 1
+
+    def assign_time_multiplex_b_input_ctrl(dsp: DSP48E2, ce1: Bool = True, ce2: Bool = True, selB1: Bool = True): Unit = {
+      dsp.CEs.B1 := ce1
+      dsp.CEs.B2 := ce2
+      inmode.assign_inmode_b(dsp, high4b1 = selB1)
+    }
+
   }
 
   object c {
