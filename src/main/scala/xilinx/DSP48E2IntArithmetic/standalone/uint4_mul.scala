@@ -28,7 +28,7 @@ class uint4_mul() extends Component {
   set_mul_attr(attr)
   inmode.set_static_inmode_attr(attr)
   opmode.set_static_opmode_attr(attr)
-  ad_pack.set_static_ad_pack_attr(attr)
+  ad_pack.set_ad_pack_attr(attr)
   ad_pack.set_static_b_attr(attr)
   c.set_mute_c_attr(attr)
 
@@ -41,7 +41,7 @@ class uint4_mul() extends Component {
   x.x_sel_m(dsp, True)
   y.y_sel_m(dsp, True)
   z.z_sel_p(dsp, False)
-  ad_pack.assign_static_ad_pack_ctrl(dsp)
+  ad_pack.assign_ad_pack_ctrl(dsp)
   ad_pack.assign_static_b_ctrl(dsp)
   c.assign_mute_c_ctrl(dsp)
 

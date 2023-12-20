@@ -26,7 +26,7 @@ class int12_xadd extends Component {
   set_alu_attr(attr, simd = 4)
   inmode.set_static_inmode_attr(attr)
   opmode.set_dynamic_opmode_attr(attr)
-  ab_concat.set_static_ab_concat_attr(attr)
+  ab_concat.set_ab_concat_attr(attr)
   c.set_c_input_attr(attr)
   d.set_mute_d_attr(attr)
 
@@ -39,7 +39,7 @@ class int12_xadd extends Component {
   x.x_sel_ab(dsp, io.aSel.msb)
   y.y_sel_c(dsp, False)
   z.z_sel_p(dsp, False)
-  ab_concat.assign_static_ab_concat_ctrl(dsp)
+  ab_concat.assign_ab_concat_ctrl(dsp)
   c.assign_c_input_ctrl(dsp)
   d.assign_mute_d_ctrl(dsp)
 

@@ -28,7 +28,7 @@ class int8_dotp(length: Int) extends Component {
     set_mul_attr(attrs(i))
     inmode.set_static_inmode_attr(attrs(i))
     opmode.set_static_opmode_attr(attrs(i))
-    ad_pack.set_static_ad_pack_attr(attrs(i))
+    ad_pack.set_ad_pack_attr(attrs(i))
     ad_pack.set_static_b_attr(attrs(i))
     c.set_mute_c_attr(attrs(i))
   }
@@ -43,7 +43,7 @@ class int8_dotp(length: Int) extends Component {
     x.x_sel_m(dsp48e2s(i), True)
     y.y_sel_m(dsp48e2s(i), True)
     z.z_sel_pcin(dsp48e2s(i), if (i != 0) True else False)
-    ad_pack.assign_static_ad_pack_ctrl(dsp48e2s(i))
+    ad_pack.assign_ad_pack_ctrl(dsp48e2s(i))
     ad_pack.assign_static_b_ctrl(dsp48e2s(i))
     c.assign_mute_c_ctrl(dsp48e2s(i))
     assign_m_ctrl(dsp48e2s(i), ce = True, rst = False)

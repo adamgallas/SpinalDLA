@@ -6,6 +6,9 @@ import scala.language.postfixOps
 object DSP48E2ConfigWXYZ {
 
   object opmode {
+    def add_optional_rnd_attr(dsp: DSP48E2, rnd: BigInt) = {
+      dsp.addGeneric("RND", B(rnd))
+    }
     def set_static_opmode_attr(attr: DSP48E2Attributes) = attr.OPMODEREG = 0
 
     def set_dynamic_opmode_attr(attr: DSP48E2Attributes) = attr.OPMODEREG = 1
@@ -22,6 +25,7 @@ object DSP48E2ConfigWXYZ {
   }
 
   object w {
+
     def assign_w_ctrl(dsp: DSP48E2, wSel: Bits) = dsp.INST.OPMODE(8 downto 7) := wSel
 
     def w_sel_p(dsp: DSP48E2, high4P: Bool) = assign_w_ctrl(dsp, B"0" ## high4P)

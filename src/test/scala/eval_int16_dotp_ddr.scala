@@ -5,33 +5,28 @@ import spinal.lib.eda.bench.Rtl
 import xilinx.DSP48E2._
 import xilinx.DSP48E2IntArithmetic.cascade.int16_dotp_ddr
 
+import scala.collection.mutable.ArrayBuffer
 import scala.language.postfixOps
 import scala.util.Random
 
 object eval_int16_dotp_ddr extends App {
 
   val sampleLength = 16
-  val vecLength = 4
+  val vecLength = 8
 
   SpinalVerilog(new int16_dotp_ddr(vecLength))
 
   val a = Array.fill(sampleLength)(Array.fill(vecLength)(Random.nextInt(256) - 128))
   val b = Array.fill(sampleLength)(Array.fill(vecLength)(Random.nextInt(256) - 128))
-  val c = Array.fill(sampleLength)(Array.fill(vecLength)(Random.nextInt(256) - 128))
-  val d = Array.fill(sampleLength)(Array.fill(vecLength)(Random.nextInt(256) - 128))
 
-  val ac = for (s <- 0 until sampleLength) yield (a(s), c(s)).zipped.map(_ * _).sum
-  val ad = for (s <- 0 until sampleLength) yield (a(s), d(s)).zipped.map(_ * _).sum
-  val bc = for (s <- 0 until sampleLength) yield (b(s), c(s)).zipped.map(_ * _).sum
-  val bd = for (s <- 0 until sampleLength) yield (b(s), d(s)).zipped.map(_ * _).sum
-
-  val aIn = for (s <- 0 until sampleLength) yield (a(s), b(s)).zipped.flatMap(Array(_, _))
-  val bIn = for (s <- 0 until sampleLength) yield (c(s), d(s)).zipped.flatMap(Array(_, _))
-
-  for (s <- 0 until sampleLength) {
-    println(ac(s), ad(s), bc(s), bd(s))
+  val res = ArrayBuffer[Int]()
+  for (s <- 0 until sampleLength / 2) {
+    val ac = (a(s * 2), b(s * 2)).zipped.map(_ * _).sum
+    val ad = (a(s * 2 + 1), b(s * 2)).zipped.map(_ * _).sum
+    val bc = (a(s * 2), b(s * 2 + 1)).zipped.map(_ * _).sum
+    val bd = (a(s * 2 + 1), b(s * 2 + 1)).zipped.map(_ * _).sum
+    println(ac, bc, ad, bd)
   }
-
 
   SimConfig.withFstWave
     .addRtl("data/sim/DSP48E2.v")

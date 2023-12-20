@@ -34,7 +34,7 @@ class int12_xdotp(length: Int, acc: Boolean = false) extends Component {
     set_alu_attr(attrs(i), simd = 4)
     inmode.set_static_inmode_attr(attrs(i))
     opmode.set_dynamic_opmode_attr(attrs(i))
-    ab_concat.set_static_ab_concat_attr(attrs(i))
+    ab_concat.set_ab_concat_attr(attrs(i))
     c.set_c_input_attr(attrs(i))
     d.set_mute_d_attr(attrs(i))
   }
@@ -51,7 +51,7 @@ class int12_xdotp(length: Int, acc: Boolean = false) extends Component {
     x.x_sel_ab(dsp48e2s(i), io.aSel(i).msb)
     y.y_sel_c(dsp48e2s(i), io.bSel(i).msb)
     z.z_sel_pcin(dsp48e2s(i), if (i != 0) if (accCond) io.valid else True else False)
-    ab_concat.assign_static_ab_concat_ctrl(dsp48e2s(i))
+    ab_concat.assign_ab_concat_ctrl(dsp48e2s(i))
     c.assign_c_input_ctrl(dsp48e2s(i))
     d.assign_mute_d_ctrl(dsp48e2s(i))
 

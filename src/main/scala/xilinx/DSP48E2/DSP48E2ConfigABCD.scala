@@ -146,7 +146,6 @@ object DSP48E2ConfigABCD {
       dsp.CEs.B2 := ce2
       inmode.assign_inmode_b(dsp, high4b1 = selB1)
     }
-
   }
 
   object c {
@@ -187,16 +186,16 @@ object DSP48E2ConfigABCD {
   }
 
   object ab_concat {
-    def set_static_ab_concat_attr(attr: DSP48E2Attributes) = {
+    def set_ab_concat_attr(attr: DSP48E2Attributes) = {
       attr.AREG = 1
       attr.BREG = 1
     }
 
-    def assign_static_ab_concat_ctrl(dsp: DSP48E2): Unit = {
+    def assign_ab_concat_ctrl(dsp: DSP48E2, ce: Bool = True): Unit = {
       inmode.assign_inmode_a(dsp, high4a1 = False)
       inmode.assign_inmode_b(dsp, high4b1 = False)
-      dsp.CEs.A2.set()
-      dsp.CEs.B2.set()
+      dsp.CEs.A2 := ce
+      dsp.CEs.B2 := ce
     }
 
     def set_pingpong_ab_concat_attr(attr: DSP48E2Attributes) = {
@@ -211,7 +210,7 @@ object DSP48E2ConfigABCD {
   }
 
   object ad_pack {
-    def set_static_ad_pack_attr(attr: DSP48E2Attributes, use_ad: Boolean = true) = {
+    def set_ad_pack_attr(attr: DSP48E2Attributes, use_ad: Boolean = true) = {
       attr.AREG = 1
       attr.DREG = if (use_ad) 1 else 0
       attr.ADREG = 1
@@ -227,10 +226,10 @@ object DSP48E2ConfigABCD {
       b.set_b_pingpong(attr)
     }
 
-    def assign_static_ad_pack_ctrl(dsp: DSP48E2, use_ad: Boolean = true): Unit = {
+    def assign_ad_pack_ctrl(dsp: DSP48E2, use_ad: Boolean = true, ce: Bool = True): Unit = {
       inmode.assign_inmode_a(dsp, high4a1 = True)
-      dsp.CEs.A1.set()
-      dsp.CEs.D.set()
+      dsp.CEs.A1 := ce
+      dsp.CEs.D := ce
       if (use_ad) dsp.CEs.AD.set()
     }
 
