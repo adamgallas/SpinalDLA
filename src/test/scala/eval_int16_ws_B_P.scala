@@ -15,6 +15,8 @@ object eval_int16_ws_B_P extends App {
   val vecLength = 8
   val sampleLength = pass * reuse
 
+  SpinalVerilog(new int16_ws_B_P(8))
+
   val a = Array.fill(pass)(Array.fill(vecLength)(Random.nextInt(256) - 128))
   val b = Array.fill(pass)(Array.fill(reuse)(Array.fill(vecLength)(Random.nextInt(256) - 128)))
 

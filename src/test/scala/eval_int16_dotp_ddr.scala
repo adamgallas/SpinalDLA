@@ -11,7 +11,7 @@ import scala.util.Random
 
 object eval_int16_dotp_ddr extends App {
 
-  val sampleLength = 16
+  val sampleLength = 32
   val vecLength = 8
 
   SpinalVerilog(new int16_dotp_ddr(vecLength))

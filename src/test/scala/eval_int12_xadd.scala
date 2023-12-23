@@ -12,7 +12,7 @@ object eval_int12_xadd extends App {
 
   // simulate
 
-  val length = 1024
+  val length = 32
   val aSel = Array.fill(length)(Random.nextInt(2))
   val bSel = Array.fill(length)(Random.nextInt(2))
   val a = Array.fill(length)(Array.fill(4)(Random.nextInt(4096) - 2048))

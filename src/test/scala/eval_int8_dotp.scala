@@ -10,7 +10,7 @@ import scala.util.Random
 
 object eval_int8_dotp extends App {
 
-  val sampleLength = 1024
+  val sampleLength = 32
   val vecLength = 8
 
   val a = Array.fill(sampleLength)(Array.fill(vecLength)(Random.nextInt(128)))

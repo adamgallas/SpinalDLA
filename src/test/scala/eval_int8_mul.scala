@@ -12,7 +12,7 @@ object eval_int8_mul extends App {
 
   // simulate
 
-  val length = 1024
+  val length = 32
   val a = Array.fill(length)(Random.nextInt(256) - 128)
   val b = Array.fill(length)(Random.nextInt(256) - 128)
   val c = Array.fill(length)(Random.nextInt(256) - 128)

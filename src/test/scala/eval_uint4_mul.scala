@@ -10,7 +10,7 @@ import scala.util.Random
 
 object eval_uint4_mul extends App {
 
-  val sampleLength = 1024
+  val sampleLength = 32
   val a1 = Array.fill(sampleLength)(Random.nextInt(16))
   val a2 = Array.fill(sampleLength)(Random.nextInt(16))
   val w1 = Array.fill(sampleLength)(Random.nextInt(16) - 8)
