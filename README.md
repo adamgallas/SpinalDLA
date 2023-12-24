@@ -10,6 +10,14 @@ SpinalDLA integrates the following features:
 - several deep learning accelerator design examples ```(coming soon)```
 - and more...
 
+# Plug-and-Play RTL Modules
+
+This library provides users with a set of plug-and-play RTL modules, which does not require users to have a deep understanding of SpinalHDL. Users can simply instantiate the modules and connect them together to build their own deep learning accelerators.
+
+Located at ```verilog/``` directory, the RTL modules are written in Verilog, which can be easily integrated into any existing RTL design flow.
+
+The corresponding simulation waveforms are located at ```fst/``` directory, which can be viewed by [GTKWave](http://gtkwave.sourceforge.net/).
+
 # How to Use it
 This library is based on SpinalHDL with SBT build.
 
@@ -21,7 +29,7 @@ addSbtPlugin("com.codecommit" % "sbt-github-packages" % "0.5.2")
 ```
 githubTokenSource := TokenSource.GitConfig("github.token")
 resolvers += Resolver.githubPackages("adamgallas", "SpinalDLA")
-libraryDependencies += "casia" %% "SpinalDLA" % "0.1"
+libraryDependencies += "casia" %% "SpinalDLA" % "0.3"
 ```
 
 3. Rebuid your project with `sbt compile`.
