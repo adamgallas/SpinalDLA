@@ -1,5 +1,0 @@
-package util
-
-class TraverseStridedAddrGen {
-
-}

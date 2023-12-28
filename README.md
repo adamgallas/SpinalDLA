@@ -18,6 +18,23 @@ Located at ```verilog/``` directory, the RTL modules are written in Verilog, whi
 
 The corresponding simulation waveforms are located at ```fst/``` directory, which can be viewed by [GTKWave](http://gtkwave.sourceforge.net/).
 
+The table is listed below:
+
+| Module Name             | Description                                                                                                      |
+|:------------------------|:-----------------------------------------------------------------------------------------------------------------|
+| ```int_8_mul.v```       | Xilinx INT8 Packing Technique                                                                                    |
+| ```unt_4_mul.v```       | Xilinx INT4 Packing Technique                                                                                    |
+| ```int12_xadd.v```      | Spike-Based Synaptic Operation                                                                                   |
+| ```int8_dotp.v```       | Xilinx INT8 Dot Product Chain                                                                                    |
+| ```int8_ws_B_P.v```     | INT8 Weight Stationary Systolic Array Chain with B and P Cascade, B path is used by In-DSP Operand Prefetching.  |
+| ```int8_ws_AD_B.v```    | INT8 Weight Stationary Systolic Array Chain with AD and B Cascade, B path is used by In-DSP Operand Prefetching. |
+| ```int16_dotp.v```      | INT16 Dot Product Chain                                                                                          |
+| ```int16_dotp_ddr.v```  | INT16 Dot Product Chain with In-DSP Time-Multiplexing                                                            |
+| ```int16_ws_B_P.v```    | INT16 Weight Stationary Systolic Array Chain with B and P Cascade                                                |
+| ```int16_os_B_P.v```    | INT16 Output Stationary Systolic Array Chain with B and P Cascade, P path is used by Partial Sums Offloading.    |
+| ```int24_acc_scale.v``` | SIMD=2 Accumulate then Scale Operation                                                                           |                                                                                                             |
+
+
 # How to Use it
 This library is based on SpinalHDL with SBT build.
 

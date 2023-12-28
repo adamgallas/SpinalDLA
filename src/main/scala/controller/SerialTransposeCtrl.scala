@@ -6,8 +6,6 @@ import util.LoopsCntGen
 
 import scala.language.postfixOps
 
-class CCFreeMultiBankWrCtrl[T <: Data]() extends Component {
-  val io = new Bundle {
+class SerialTransposeCtrl {
 
-  }
 }
