@@ -8,12 +8,14 @@ import util.AxiStreamSpecRenamer
 
 import scala.language.postfixOps
 
-class ZynqPsDDRBench(dataWidth: Int) extends Component {
+class ZynqPsDDRBench(dataWidth: Int, addrWidth: Int = 32) extends Component {
+
+  require(addrWidth % 8 == 0)
 
   val io = new Bundle {
     val ctrl = slave(AxiLite4(AxiLite4Config(32, 32)))
     val mm2s = slave(Stream(Bits(dataWidth bits)))
-    val cmd = master(Stream(Bits(72 bits)))
+    val cmd = master(Stream(Bits(32 + 8 + addrWidth bits)))
   }
 
   noIoPrefix()
@@ -24,6 +26,7 @@ class ZynqPsDDRBench(dataWidth: Int) extends Component {
   io.mm2s.freeRun()
 
   val baseAddr = UInt(32 bits).setAsReg().init(0)
+  val baseAddrEx = if (addrWidth > 32) UInt(addrWidth - 32 bits).setAsReg().init(0) else null
   val addr = UInt(32 bits).setAsReg().init(0)
   val len = UInt(23 bits).setAsReg().init(0)
   val total = UInt(32 bits).setAsReg().init(0)
@@ -36,6 +39,7 @@ class ZynqPsDDRBench(dataWidth: Int) extends Component {
 
   val cfg = new AxiLite4SlaveFactory(io.ctrl)
   cfg.write(baseAddr, 0x00, 0)
+  if (addrWidth > 32) cfg.write(baseAddrEx, 0x40, 0)
   cfg.write(addr, 0x04, 0)
   cfg.write(len, 0x08, 0)
   cfg.readAndWrite(total, 0x0c, 0)
@@ -48,8 +52,9 @@ class ZynqPsDDRBench(dataWidth: Int) extends Component {
   cfg.write(clear, 0x24, 0)
   clear.clear()
 
+  val baseAddrPack = if (addrWidth > 32) (baseAddrEx ## baseAddr).asUInt else baseAddr
   val cmdFifo = StreamFifo(util.PairBundle(UInt(32 bits), UInt(23 bits)), 1024)
-  io.cmd << AxiDataMoverCmdGen(cmdFifo.io.pop, baseAddr, True, True).haltWhen(halt)
+  io.cmd << AxiDataMoverCmdGen(cmdFifo.io.pop, baseAddrPack, True, True).haltWhen(halt)
 
   cmdFifo.io.push.valid := valid
   cmdFifo.io.push.payload.A := addr
@@ -82,5 +87,5 @@ class ZynqPsDDRBench(dataWidth: Int) extends Component {
 }
 
 object ZynqPsDDRBench extends App {
-  SpinalVerilog(new ZynqPsDDRBench(128))
+  SpinalVerilog(new ZynqPsDDRBench(512, 40))
 }
