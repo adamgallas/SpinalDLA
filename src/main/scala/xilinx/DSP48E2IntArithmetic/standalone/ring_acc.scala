@@ -20,7 +20,6 @@ class ring_acc() extends Component {
     val bias0 = in Bits (24 bits)
     val bias1 = in Bits (24 bits)
 
-
     val out0 = out Bits (48 bits)
     val out1 = out Bits (48 bits)
   }
