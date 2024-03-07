@@ -16,6 +16,8 @@ class enhanced_b1024_sa(
                           height: Int
                         ) extends Component {
 
+  clockDomain.setName("fast")
+
   val pe = for (i <- 0 until height) yield {
     for (j <- 0 until width) yield {
       new enhanced_b1024_pe(

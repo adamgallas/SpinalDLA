@@ -81,7 +81,8 @@ class int8_dotp_ddr(length: Int, acc: Boolean = false) extends Component {
   val P = dsp48e2s.last.DATAOUT.P
   val abRes = P(17 downto 0).asBits
   val abNeg = B"0" ## abRes.msb
-  val acRes = P(35 downto 18).asSInt + abNeg.asSInt
+//  val acRes = P(35 downto 18).asSInt + abNeg.asSInt
+  val acRes = P(35 downto 18).asSInt
 
   io.ab := abRes
   io.ac := acRes.asBits

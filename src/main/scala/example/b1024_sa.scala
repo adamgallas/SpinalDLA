@@ -62,6 +62,7 @@ class b1024_sa(
 }
 
 object sa extends App {
-  SpinalVerilog(new b1024_sa(ClockDomain.external("clkx1"), 4, 4, 4))
-  SpinalVerilog(new enhanced_b1024_sa(ClockDomain.external("clkx2"), 4, 4, 4))
+
+  SpinalVerilog(new b1024_sa(ClockDomain.external("slow"), 4, 4, 4))
+  SpinalVerilog(new enhanced_b1024_sa(ClockDomain.external("fast"), 4, 4, 4))
 }
