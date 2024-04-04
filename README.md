@@ -1,5 +1,5 @@
 # About SpinalDLA
-SpinalDLA is an RTL design library for deep learning accelerators based on SpinalHDL, aiming to provide agile development tools for hardware developers specializing in customized hardware.
+SpinalDLA is an RTL design library for deep learning accelerators based on SpinalHDL, aiming to provide agile development tools for hardware developers specializing in customized hardware. ```(still under development)```
 
 SpinalDLA integrates the following features:
 
@@ -36,7 +36,7 @@ The table is listed below:
 
 
 # How to Use it
-This library is based on SpinalHDL with SBT build.
+This library is based on SpinalHDL with SBT build. ```(still under development)```
 
 1. Add sbt-github-packages plugin to enable sbt to consume the package. Add this line to your `./project/plugins.sbt` file:
 ```
