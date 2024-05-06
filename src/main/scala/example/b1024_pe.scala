@@ -1,9 +1,6 @@
 package example
 
 import spinal.core._
-import spinal.lib._
-import xilinx.DSP48E2._
-import systolic._
 import xilinx.DSP48E2IntArithmetic.cascade.int8_dotp
 import xilinx.DSP48E2IntArithmetic.standalone.dpuczdx8g_acc
 
@@ -111,5 +108,5 @@ class b1024_pe(
 
 object pe extends App {
   SpinalVerilog(new b1024_pe(ClockDomain.external("clkx1"), 4))
-  SpinalVerilog(new enhanced_b1024_pe(ClockDomain.external("clkx2"), 4))
+  SpinalVerilog(new ehb1024_pe(ClockDomain.external("clkx2"), 4))
 }

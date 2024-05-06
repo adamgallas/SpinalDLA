@@ -1,15 +1,12 @@
 package example
 
 import spinal.core._
-import spinal.lib._
-import xilinx.DSP48E2._
-import systolic._
 import xilinx.DSP48E2IntArithmetic.cascade.int8_dotp_ddr
 import xilinx.DSP48E2IntArithmetic.standalone.ring_acc
 
 import scala.language.postfixOps
 
-class enhanced_b1024_pe(
+class ehb1024_pe(
                          clkx2: ClockDomain,
                          length: Int,
                          isLastPEVertical: Boolean = false,
@@ -78,10 +75,10 @@ class enhanced_b1024_pe(
     acc.io.bias0 := inp.bias0
     acc.io.bias1 := inp.bias1
 
-    acc.io.p0 := chain0.io.ab.asSInt.resize(24 bits).asBits
-    acc.io.p1 := chain0.io.ac.asSInt.resize(24 bits).asBits
-    acc.io.p2 := chain1.io.ab.asSInt.resize(24 bits).asBits
-    acc.io.p3 := chain1.io.ac.asSInt.resize(24 bits).asBits
+    acc.io.p0 := RegNext(chain0.io.ab).asSInt.resize(24 bits).asBits
+    acc.io.p1 := RegNext(chain0.io.ac).asSInt.resize(24 bits).asBits
+    acc.io.p2 := RegNext(chain1.io.ab).asSInt.resize(24 bits).asBits
+    acc.io.p3 := RegNext(chain1.io.ac).asSInt.resize(24 bits).asBits
 
     out.out0 := acc.io.out0
     out.out1 := acc.io.out1

@@ -1,26 +1,19 @@
 package example
 
 import spinal.core._
-import spinal.lib._
-import xilinx.DSP48E2._
-import systolic._
-import xilinx.DSP48E2IntArithmetic.cascade.int8_dotp_ddr
-import xilinx.DSP48E2IntArithmetic.standalone.ring_acc
 
 import scala.language.postfixOps
 
-class enhanced_b1024_sa(
+class ehb1024_sa(
                           clkx2: ClockDomain,
                           length: Int,
                           width: Int,
                           height: Int
                         ) extends Component {
 
-  clockDomain.setName("fast")
-
   val pe = for (i <- 0 until height) yield {
     for (j <- 0 until width) yield {
-      new enhanced_b1024_pe(
+      new ehb1024_pe(
         clkx2 = clkx2,
         length = length,
         isLastPEVertical = i == height - 1,

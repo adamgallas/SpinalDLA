@@ -70,7 +70,7 @@ object eval_int16_ws_B_P extends App {
           }
           if (i > latency) {
             val index = i - latency - 1
-            assert(io.ab.toBigInt.toInt == ab(p)(index))
+            assert(io.c.toBigInt.toInt == ab(p)(index))
           }
           clockDomain.waitSampling(1)
         }

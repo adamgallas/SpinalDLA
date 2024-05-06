@@ -11,7 +11,7 @@ class int16_ws_B_P(length:Int) extends Component {
   val io = new Bundle {
     val a = in Bits (16 bits)
     val b = in Vec(Bits(16 bits), length)
-    val ab = out Bits (48 bits)
+    val c = out Bits (48 bits)
 
     val enPrefetch = in Bool()
     val enFetch = in Bool()
@@ -72,5 +72,5 @@ class int16_ws_B_P(length:Int) extends Component {
       enPrefetchChain(i).clearWhen(io.clrPrefetch(i))
     }
   }
-  io.ab := dsp48e2s.last.DATAOUT.P
+  io.c := dsp48e2s.last.DATAOUT.P
 }
